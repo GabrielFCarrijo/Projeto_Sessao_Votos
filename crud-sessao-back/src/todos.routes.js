@@ -4,22 +4,22 @@ const express = require("express");
 const allTodos = [{ name: "aaaa", status: false }];
 const todosRoutes = express.Router();
 const todosVotos = express.Router();
-const {PrismaClient} = require("@prisma/client");
+const { PrismaClient } = require("@prisma/client");
 
 const prisma = new PrismaClient();
 
 // INSERCAO DE VOTOS
 
-todosRoutes.post("/votos", async(request, response) => {
-    const {sessao, estado, voto} = request.body;
-    const votos = await prisma.votos.create({
-      data:{
-        sessao,
-        estado,
-        voto,
-      },
-    });
-    return response.status(201).json(votos)
+todosRoutes.post("/votos", async (request, response) => {
+  const { sessao, estado, voto } = request.body;
+  const votos = await prisma.votos.create({
+    data: {
+      sessao,
+      estado,
+      voto,
+    },
+  });
+  return response.status(201).json(votos);
 });
 
 todosRoutes.get("/votos", async (request, response) => {
@@ -28,17 +28,17 @@ todosRoutes.get("/votos", async (request, response) => {
 });
 
 todosRoutes.put("/votos", async (request, response) => {
-  const {sessao, estado, id, voto} = request.body;
+  const { sessao, estado, id, voto } = request.body;
 
-    if(!id) {
-      return response.status(400).json("Id é obrigatorio")
-    }
-  
-    const votoAlredyExist = await prisma.votos.findUnique({where : {id}});
+  if (!id) {
+    return response.status(400).json("Id é obrigatorio");
+  }
 
-    if(!votoAlredyExist) {
-      return response.status(404).json("Voto not exist");
-    }
+  const votoAlredyExist = await prisma.votos.findUnique({ where: { id } });
+
+  if (!votoAlredyExist) {
+    return response.status(404).json("Voto not exist");
+  }
 
   const votos = await prisma.votos.update({
     where: {
@@ -85,7 +85,7 @@ todosRoutes.post("/todos", async (request, response) => {
       name,
     },
   });
-  
+
   return response.status(201).json(todo);
 });
 
@@ -95,17 +95,17 @@ todosRoutes.get("/todos", async (request, response) => {
 });
 
 todosRoutes.put("/todos", async (request, response) => {
-  const {name, id, status} = request.body;
+  const { name, id, status } = request.body;
 
-    if(!id) {
-      return response.status(400).json("Id é obrigatorio")
-    }
-  
-    const todoAlredyExist = await prisma.todo.findUnique({where : {id}});
+  if (!id) {
+    return response.status(400).json("Id é obrigatorio");
+  }
 
-    if(!todoAlredyExist) {
-      return response.status(404).json("Todo not exist");
-    }
+  const todoAlredyExist = await prisma.todo.findUnique({ where: { id } });
+
+  if (!todoAlredyExist) {
+    return response.status(404).json("Todo not exist");
+  }
 
   const todo = await prisma.todo.update({
     where: {
@@ -141,5 +141,21 @@ todosRoutes.delete("/todos/:id", async (request, response) => {
 
   return response.status(200).send();
 });
+
+
+todosRoutes.post("/politico", async (request, response) => {
+  var {nomePolitico} = request.body;
+  const {senha} = request.body;
+
+  const politico = await prisma.politico.create({
+      data: {
+          nomePolitico,
+          senha
+      }
+  });
+
+  return response.status(201).json(politico)
+})
+
 
 module.exports = todosRoutes;

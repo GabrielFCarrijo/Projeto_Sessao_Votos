@@ -22,3 +22,8 @@ model Votos {
   estado String
   voto String
 }
+
+model Politico{
+  idPolitico Int @id @default(autoincrement())
+  nomePolitico String @unique
+}
