@@ -9,6 +9,8 @@ Gabriel Ferreira Carrijo
 
 Projeto é uma sessao de votos contendo todas as funcionalidades de um crud, projeto contendo banco utilizando docker
 
+Projeto contem Login, Sessao contendo todas as sessoes ativas para votação, Sessao de votos onde consegue ver tambem quantos e quais foram os votos até o momento
+
 - Para Executar é necessario dar um "npm install" necessario para instalar todas as dependencias
 - Executar Back utilizando "npm run dev"
 - Executar Front utilizando "npm start"
